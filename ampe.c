@@ -840,9 +840,6 @@ static void fsm_step(struct candidate *cand, enum plink_event event)
 			plink_frame_tx(cand, PLINK_CONFIRM, 0);
 			break;
 		case CNF_ACPT:
-			//del_timer(&cand->plink_timer);
-			//mesh_plink_inc_estab_count(sdata);
-			//ieee80211_bss_info_change_notify(sdata, BSS_CHANGED_BEACON);
             derive_mtk(cand);
             cb->estab_peer_link(cand->peer_mac,
                     cand->mtk, sizeof(cand->mtk),
@@ -917,8 +914,6 @@ static void fsm_step(struct candidate *cand, enum plink_event event)
             cand->t2 = cb->evl->add_timeout(SRV_MSEC(cand->timeout), plink_timer, cand);
             changed |= mesh_set_ht_op_mode(cand->conf->mesh);
             //TODO: update the number of available peer "slots" in mesh config
-			//if (deactivated)
-		    //	ieee80211_bss_info_change_notify(sdata, BSS_CHANGED_BEACON);
 			plink_frame_tx(cand, PLINK_CLOSE, reason);
 			break;
 		case OPN_ACPT:
@@ -931,8 +926,6 @@ static void fsm_step(struct candidate *cand, enum plink_event event)
 	case PLINK_HOLDING:
 		switch (event) {
 		case CLS_ACPT:
-			//if (del_timer(&cand->plink_timer))
-			//	cand->ignore_plink_timer = 1;
 			fsm_restart(cand);
 			break;
 		case OPN_ACPT:
